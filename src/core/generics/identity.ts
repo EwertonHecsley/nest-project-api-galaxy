@@ -1,13 +1,13 @@
-import { randomInt } from "crypto";
+import { randomUUID } from "crypto";
 
 export default class Idendity {
-    private value: number;
+    private value: string;
 
-    constructor(value?: number) {
-        this.value = value ?? randomInt(3);
+    constructor(value?: string) {
+        this.value = value ?? randomUUID().toString();;
     }
 
-    get valueId(): number {
+    get valueId(): string {
         return this.value;
     }
 }
