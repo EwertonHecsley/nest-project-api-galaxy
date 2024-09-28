@@ -20,6 +20,46 @@ export class PlanetPrismaRepository implements PlanetRepository {
     async findMany(id: string): Promise<Planet> {
         const foundPlanet = await this.prismaService.planet.findFirst({ where: { id } });
 
+        if (!foundPlanet) {
+            return null;
+        }
+
         return PlanetPrismaMapper.toDomain(foundPlanet);
+    }
+
+    async findByName(name: string): Promise<Planet> {
+        const planet = await this.prismaService.planet.findUnique({ where: { name } });
+
+        if (!planet) {
+            return null;
+        }
+
+        return PlanetPrismaMapper.toDomain(planet);
+    }
+
+    async list(): Promise<Planet[]> {
+        const listPlanets = await this.prismaService.planet.findMany();
+
+        return listPlanets.map(PlanetPrismaMapper.toDomain);
+    }
+
+    async save(planet: Planet): Promise<void> {
+        const planetExist = await this.prismaService.planet.findFirst({ where: { id: planet.id.valueId } });
+
+        if (!planetExist) {
+            return null;
+        }
+
+        await this.prismaService.planet.update({ where: { id: planet.id.valueId }, data: PlanetPrismaMapper.toDatabase(planet) });
+    }
+
+    async delete(id: string): Promise<void> {
+        const planet = await this.prismaService.planet.findFirst({ where: { id } });
+
+        if (!planet) {
+            return null;
+        }
+
+        await this.prismaService.planet.delete({ where: { id: planet.id } });
     }
 }

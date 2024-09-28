@@ -1,4 +1,4 @@
-import { Body, Controller, HttpCode, InternalServerErrorException, Post, Res } from "@nestjs/common";
+import { BadRequestException, Body, Controller, HttpCode, Post, Res } from "@nestjs/common";
 import { Response } from "express";
 import { PlanetDto } from "src/domain/planet/dto/planet.dto";
 import { CreatePlanetUseCase } from "src/domain/planet/use-case/create.planet";
@@ -14,7 +14,7 @@ export class CreatePlanetController {
     async handler(@Body() bodyPlanet: PlanetDto, @Res() response: Response) {
         const result = await this.planetService.execute({ ...bodyPlanet });
 
-        if (result.isLeft()) throw new InternalServerErrorException();
+        if (result.isLeft()) throw new BadRequestException();
 
         return response.json(PlanetPresenter.toHTTP(result.value));
     }
