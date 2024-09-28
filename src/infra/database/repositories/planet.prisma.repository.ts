@@ -36,4 +36,10 @@ export class PlanetPrismaRepository implements PlanetRepository {
 
         return PlanetPrismaMapper.toDomain(planet);
     }
+
+    async list(): Promise<Planet[]> {
+        const listPlanets = await this.prismaService.planet.findMany();
+
+        return listPlanets.map(PlanetPrismaMapper.toDomain);
+    }
 }

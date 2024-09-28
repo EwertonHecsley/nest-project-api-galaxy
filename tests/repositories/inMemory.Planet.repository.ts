@@ -21,4 +21,8 @@ export class InMemoryPlanetRepository implements PlanetRepository {
 
         return data;
     }
+
+    async list(): Promise<Planet[]> {
+        return this.itens
+    }
 }
