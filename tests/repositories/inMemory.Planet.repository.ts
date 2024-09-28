@@ -31,4 +31,12 @@ export class InMemoryPlanetRepository implements PlanetRepository {
 
         this.itens[itensExist] = planet;
     }
+
+    async delete(id: string): Promise<void> {
+        const itensExist = await this.itens.findIndex(element => element.id.valueId == id);
+
+        if (itensExist > -1) {
+            this.itens.splice(itensExist, 1);
+        }
+    }
 }

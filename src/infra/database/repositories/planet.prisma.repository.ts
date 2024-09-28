@@ -52,4 +52,14 @@ export class PlanetPrismaRepository implements PlanetRepository {
 
         await this.prismaService.planet.update({ where: { id: planet.id.valueId }, data: PlanetPrismaMapper.toDatabase(planet) });
     }
+
+    async delete(id: string): Promise<void> {
+        const planet = await this.prismaService.planet.findFirst({ where: { id } });
+
+        if (!planet) {
+            return null;
+        }
+
+        await this.prismaService.planet.delete({ where: { id: planet.id } });
+    }
 }
