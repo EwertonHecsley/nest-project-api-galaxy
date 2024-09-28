@@ -1,4 +1,4 @@
-import { Either, right } from "src/domain/errors/either/either";
+import { Either, right } from "../../errors/either/either";
 import { Planet } from "../entity/planet.entity";
 import { PlanetRepository } from "../repository/planet.repository";
 

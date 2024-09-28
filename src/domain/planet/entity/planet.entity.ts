@@ -1,5 +1,5 @@
-import Entity from "src/core/generics/entity";
-import Idendity from "src/core/generics/identity";
+import Entity from "../../../core/generics/entity";
+import Idendity from "../../../core/generics/identity";
 
 type PlanetType = {
     name: string;
