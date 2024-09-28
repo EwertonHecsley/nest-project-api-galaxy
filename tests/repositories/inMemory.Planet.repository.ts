@@ -15,4 +15,10 @@ export class InMemoryPlanetRepository implements PlanetRepository {
 
         return data;
     }
+
+    async findByName(name: string): Promise<Planet> {
+        const data = await this.itens.find((elment) => elment.name == name);
+
+        return data;
+    }
 }

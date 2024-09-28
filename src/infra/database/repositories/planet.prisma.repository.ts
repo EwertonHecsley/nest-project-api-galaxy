@@ -26,4 +26,14 @@ export class PlanetPrismaRepository implements PlanetRepository {
 
         return PlanetPrismaMapper.toDomain(foundPlanet);
     }
+
+    async findByName(name: string): Promise<Planet> {
+        const planet = await this.prismaService.planet.findUnique({ where: { name } });
+
+        if (!planet) {
+            return null;
+        }
+
+        return PlanetPrismaMapper.toDomain(planet);
+    }
 }
