@@ -1,6 +1,6 @@
 import { Either, left, right } from "../../errors/either/either";
 import { PlanetRepository } from "../repository/planet.repository";
-import { NotFoundException } from "@nestjs/common";
+import { BadRequestException, NotFoundException } from "@nestjs/common";
 
 type Request = {
     id: string;
@@ -10,7 +10,7 @@ type Request = {
     population?: number;
 }
 
-type Response = Either<NotFoundException, boolean>
+type Response = Either<NotFoundException | BadRequestException, boolean>
 
 export class EditPlanetUseCase {
 
@@ -21,6 +21,10 @@ export class EditPlanetUseCase {
 
         if (!planet) {
             return left(new NotFoundException(`Planet with id ${planetData.id} not found.`));
+        }
+
+        if (planetData.name == planet.name) {
+            return left(new BadRequestException('Planet name is not changed'));
         }
 
         if (planetData.name) planet.name = planetData.name;
