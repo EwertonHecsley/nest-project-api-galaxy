@@ -16,4 +16,10 @@ export class PlanetPrismaRepository implements PlanetRepository {
 
         return PlanetPrismaMapper.toDomain(createdPlanet);
     }
+
+    async findMany(id: string): Promise<Planet> {
+        const foundPlanet = await this.prismaService.planet.findFirst({ where: { id } });
+
+        return PlanetPrismaMapper.toDomain(foundPlanet);
+    }
 }
