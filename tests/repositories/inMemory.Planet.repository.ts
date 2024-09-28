@@ -25,4 +25,10 @@ export class InMemoryPlanetRepository implements PlanetRepository {
     async list(): Promise<Planet[]> {
         return this.itens
     }
+
+    async save(planet: Planet): Promise<void> {
+        const itensExist = await this.itens.findIndex(element => element.id == planet.id);
+
+        this.itens[itensExist] = planet;
+    }
 }

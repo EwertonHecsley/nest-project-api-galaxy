@@ -5,4 +5,5 @@ export abstract class PlanetRepository {
     abstract findMany(id: string): Promise<Planet>;
     abstract findByName(name: string): Promise<Planet>;
     abstract list(): Promise<Planet[]>;
+    abstract save(planet: Planet): Promise<void>;
 }

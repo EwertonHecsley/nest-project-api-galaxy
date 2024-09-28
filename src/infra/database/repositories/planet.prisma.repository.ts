@@ -42,4 +42,14 @@ export class PlanetPrismaRepository implements PlanetRepository {
 
         return listPlanets.map(PlanetPrismaMapper.toDomain);
     }
+
+    async save(planet: Planet): Promise<void> {
+        const planetExist = await this.prismaService.planet.findFirst({ where: { id: planet.id.valueId } });
+
+        if (!planetExist) {
+            return null;
+        }
+
+        await this.prismaService.planet.update({ where: { id: planet.id.valueId }, data: PlanetPrismaMapper.toDatabase(planet) });
+    }
 }
