@@ -1,5 +1,5 @@
 import { InMemoryPlanetRepository } from "../../../../tests/repositories/inMemory.Planet.repository";
-import { CreatePlanetUseCase } from "../use-case/create.planet";
+import { CreatePlanetUseCase } from "./create.planet";
 
 let planetRepository: InMemoryPlanetRepository;
 let useCase: CreatePlanetUseCase;

@@ -9,4 +9,10 @@ export class InMemoryPlanetRepository implements PlanetRepository {
 
         return planet;
     }
+
+    async findMany(id: string): Promise<Planet> {
+        const data = await this.itens.find((elment) => elment.id.valueId == id);
+
+        return data;
+    }
 }
