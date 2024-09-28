@@ -8,11 +8,22 @@ datasource db {
 }
 
 model Planet {
-  id         String @id @default(uuid()) @db.Uuid
-  name       String @unique
-  climate    String
-  terrain    String
-  population Int
+  id           String      @id @default(uuid()) @db.Uuid
+  name         String      @unique
+  climate      String
+  terrain      String
+  population   Int
+  StarSystem   StarSystem? @relation(fields: [starSystemId], references: [id])
+  starSystemId String?     @db.Uuid
 
   @@map("planets")
+}
+
+model StarSystem {
+  id          String   @id @default(uuid()) @db.Uuid
+  name        String
+  description String
+  planets     Planet[]
+
+  @@map("star_systems")
 }
