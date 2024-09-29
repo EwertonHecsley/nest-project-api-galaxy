@@ -11,7 +11,8 @@ type PlanetType = {
 
 export class Planet extends Entity<PlanetType> {
 
-    static create(planetData: PlanetType, id?: Idendity): Planet {
+    static create(planetData: PlanetType, id?: string | Idendity): Planet {
+        const finalId = id instanceof Idendity ? id : new Idendity(id);
         return new Planet(
             {
                 name: planetData.name,
@@ -20,7 +21,7 @@ export class Planet extends Entity<PlanetType> {
                 population: planetData.population,
                 starSystemId: planetData.starSystemId,
             },
-            id
+            finalId
         )
     }
 
