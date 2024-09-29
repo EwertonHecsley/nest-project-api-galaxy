@@ -4,12 +4,14 @@ import StarSystem from "src/domain/starSystem/entity/starSystem.entity";
 
 export class StarSystemPrismaMapper {
 
-    static toDomain(entity: StarSystemDatabase): StarSystem {
+    static toDomain(entity: any): StarSystem {
         return StarSystem.create(
             {
                 name: entity.name,
-                description: entity.description
-            }, new Idendity(entity.id)
+                description: entity.description,
+                planets: entity.planets,
+            },
+            new Idendity(entity.id)
         )
     }
 
