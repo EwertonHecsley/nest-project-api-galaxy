@@ -18,7 +18,7 @@ export class StarSystemPrismaRepository implements StarSystemRepository {
     }
 
     async findMany(id: string): Promise<StarSystem> {
-        const starSystemExist = await this.prismaService.starSystem.findFirst({ where: { id } });
+        const starSystemExist = await this.prismaService.starSystem.findFirst({ where: { id }, include: { planets: true } });
 
         if (!starSystemExist) {
             return null;
