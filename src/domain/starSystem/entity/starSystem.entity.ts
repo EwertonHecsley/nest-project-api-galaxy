@@ -10,8 +10,23 @@ type StarSystemType = {
 
 export default class StarSystem extends Entity<StarSystemType> {
 
-    static create(starSystemData: StarSystemType, id?: Idendity) {
-        return new StarSystem({ ...starSystemData }, id);
+    static create(starSystemData: Partial<StarSystemType>, id?: Idendity) {
+        const defaultData: StarSystemType = {
+            name: "",
+            description: "",
+            planets: []
+        }
+
+        const data: StarSystemType = {
+            ...defaultData,
+            ...starSystemData
+        }
+
+        return new StarSystem(data, id);
+    }
+
+    addPlanet(planet: Planet): void {
+        this.attributes.planets.push(planet);
     }
 
     get name(): string {
