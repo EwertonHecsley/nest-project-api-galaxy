@@ -15,4 +15,8 @@ export class InMemoryStarSystemRepository implements StarSystemRepository {
 
         return data;
     }
+
+    async list(): Promise<StarSystem[]> {
+        return this.itens;
+    }
 }

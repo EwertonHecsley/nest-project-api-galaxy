@@ -1,4 +1,5 @@
 import StarSystem from "src/domain/starSystem/entity/starSystem.entity";
+import { PlanetPresenter } from "./planet.presenter";
 
 export class StarSystemPresenter {
 
@@ -6,7 +7,8 @@ export class StarSystemPresenter {
         return {
             id: starSystem.id.valueId,
             name: starSystem.name,
-            description: starSystem.description
+            description: starSystem.description,
+            planets: starSystem.planets.map((planet) => PlanetPresenter.toHTTP(planet))
         }
     }
 }

@@ -26,4 +26,31 @@ export class StarSystemPrismaRepository implements StarSystemRepository {
 
         return StarSystemPrismaMapper.toDomain(starSystemExist);
     }
+
+    async list(): Promise<StarSystem[]> {
+        const starSystemsWithPlanets = await this.prismaService.starSystem.findMany({ include: { planets: true } });
+
+        const result = starSystemsWithPlanets.map(starSystem => {
+
+            const planets = starSystem.planets.map(prismaPlanet => {
+                return {
+                    id: prismaPlanet.id,
+                    name: prismaPlanet.name,
+                    climate: prismaPlanet.climate,
+                    terrain: prismaPlanet.terrain,
+                    population: prismaPlanet.population,
+                    starSystemId: prismaPlanet.starSystemId
+                }
+            });
+
+            return {
+                id: starSystem.id,
+                name: starSystem.name,
+                description: starSystem.description,
+                planets: planets
+            }
+        });
+
+        return result.map(StarSystemPrismaMapper.toDomain);
+    }
 }
