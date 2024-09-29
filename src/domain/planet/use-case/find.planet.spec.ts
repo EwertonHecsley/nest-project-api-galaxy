@@ -1,3 +1,4 @@
+import StarSystem from "../../starSystem/entity/starSystem.entity";
 import { InMemoryPlanetRepository } from "../../../../tests/repositories/inMemory.Planet.repository";
 import { Planet } from "../entity/planet.entity";
 import { FindPlanetUseCase } from "./find.planet";
@@ -12,12 +13,20 @@ describe('Teste UseCase Planet', () => {
     })
 
     test('Deve retornar um Planeta', async () => {
+        const starSystemExample = StarSystem.create(
+            {
+                name: 'Sol',
+                description: 'Sistema solar'
+            }
+        )
+
         const planet = Planet.create(
             {
                 name: 'Mars',
                 climate: 'Tropical',
                 terrain: 'Desert',
-                population: 67330300
+                population: 67330300,
+                starSystemId: starSystemExample.id.valueId
             }
         );
 

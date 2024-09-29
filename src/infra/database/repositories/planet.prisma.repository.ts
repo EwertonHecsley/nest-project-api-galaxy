@@ -10,7 +10,14 @@ export class PlanetPrismaRepository implements PlanetRepository {
     constructor(private readonly prismaService: PrismaService) { }
 
     async create(planet: Planet): Promise<Planet> {
+
         const data = PlanetPrismaMapper.toDatabase(planet);
+
+        const starSystemExist = await this.prismaService.starSystem.findFirst({ where: { id: data.starSystemId } });
+
+        if (!starSystemExist) {
+            return null;
+        }
 
         const createdPlanet = await this.prismaService.planet.create({ data });
 

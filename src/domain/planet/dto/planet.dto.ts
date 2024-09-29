@@ -17,4 +17,8 @@ export class PlanetDto {
     @IsNotEmpty({ message: 'population is required.' })
     @IsNumber()
     population: number;
+
+    @IsNotEmpty({ message: 'starSystemId is required.' })
+    @IsString()
+    starSystemId: string;
 }

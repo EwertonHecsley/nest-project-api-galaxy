@@ -12,9 +12,10 @@ export class CreatePlanetController {
     @Post()
     @HttpCode(201)
     async handler(@Body() bodyPlanet: PlanetDto, @Res() response: Response) {
-        const result = await this.planetService.execute({ ...bodyPlanet });
 
-        if (result.isLeft()) throw new BadRequestException();
+        const result = await this.planetService.execute({ ...bodyPlanet, });
+
+        if (result.isLeft()) throw new BadRequestException(result.value.message);
 
         return response.json(PlanetPresenter.toHTTP(result.value));
     }

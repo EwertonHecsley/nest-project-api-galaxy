@@ -9,6 +9,7 @@ export class PlanetPresenter {
             climate: planet.climate,
             terrain: planet.terrain,
             population: planet.population,
+            starSystemId: planet.starSystemId
         }
     }
 }

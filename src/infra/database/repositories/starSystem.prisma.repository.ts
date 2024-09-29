@@ -16,4 +16,14 @@ export class StarSystemPrismaRepository implements StarSystemRepository {
 
         return StarSystemPrismaMapper.toDomain(result);
     }
+
+    async findMany(id: string): Promise<StarSystem> {
+        const starSystemExist = await this.prismaService.starSystem.findFirst({ where: { id } });
+
+        if (!starSystemExist) {
+            return null;
+        }
+
+        return StarSystemPrismaMapper.toDomain(starSystemExist);
+    }
 }

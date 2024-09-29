@@ -2,6 +2,7 @@ import { Body, Controller, HttpCode, InternalServerErrorException, Post, Res } f
 import { Response } from "express";
 import { StarSystemDto } from "src/domain/starSystem/dto/starSystem.dto";
 import { CreateStarSystemUseCase } from "src/domain/starSystem/use-case/create.starSystem";
+import { StarSystemPresenter } from "src/infra/presenters/starSystem.presenter";
 
 @Controller('/star-system')
 export class CreateStarSystemController {
@@ -15,6 +16,6 @@ export class CreateStarSystemController {
 
         if (result.isLeft()) throw new InternalServerErrorException();
 
-        return response.json(result.value);
+        return response.json(StarSystemPresenter.toHTTP(result.value));
     }
 }

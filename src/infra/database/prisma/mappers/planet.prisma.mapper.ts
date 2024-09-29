@@ -11,6 +11,7 @@ export class PlanetPrismaMapper {
                 climate: entity.climate,
                 terrain: entity.terrain,
                 population: entity.population,
+                starSystemId: entity.starSystemId
 
             }, new Idendity(entity.id)
         );
@@ -23,7 +24,7 @@ export class PlanetPrismaMapper {
             climate: entity.climate,
             terrain: entity.terrain,
             population: entity.population,
-            starSystemId: entity.id.valueId
+            starSystemId: entity.starSystemId
         }
     }
 }

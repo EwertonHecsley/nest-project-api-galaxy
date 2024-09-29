@@ -6,12 +6,22 @@ type PlanetType = {
     climate: string;
     terrain: string;
     population: number;
+    starSystemId: string;
 }
 
 export class Planet extends Entity<PlanetType> {
 
     static create(planetData: PlanetType, id?: Idendity): Planet {
-        return new Planet({ ...planetData }, id);
+        return new Planet(
+            {
+                name: planetData.name,
+                climate: planetData.climate,
+                terrain: planetData.terrain,
+                population: planetData.population,
+                starSystemId: planetData.starSystemId,
+            },
+            id
+        )
     }
 
     get name(): string {
@@ -30,6 +40,10 @@ export class Planet extends Entity<PlanetType> {
         return this.attributes.population;
     }
 
+    get starSystemId(): string {
+        return this.attributes.starSystemId;
+    }
+
     set name(name: string) {
         this.attributes.name = name;
     }
@@ -44,5 +58,9 @@ export class Planet extends Entity<PlanetType> {
 
     set population(population: number) {
         this.attributes.population = population;
+    }
+
+    set starSystemId(starSystemId: string) {
+        this.attributes.starSystemId = starSystemId;
     }
 }

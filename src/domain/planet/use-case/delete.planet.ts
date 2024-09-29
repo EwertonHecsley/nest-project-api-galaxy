@@ -1,4 +1,4 @@
-import { Either, right } from "../../errors/either/either";
+import { Either, left, right } from "../../errors/either/either";
 import { PlanetRepository } from "../repository/planet.repository";
 import { NotFoundException } from "@nestjs/common";
 
@@ -16,7 +16,7 @@ export class DeletePlanetUseCase {
         const planet = await this.planetRepository.findMany(id);
 
         if (!planet) {
-            throw new NotFoundException(`Planet with id ${id} not found.`);
+            return left(new NotFoundException(`Planet with id ${id} not found.`));
         }
 
         await this.planetRepository.delete(id);
