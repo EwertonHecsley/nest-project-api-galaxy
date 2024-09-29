@@ -11,16 +11,17 @@ import { EditPlanetController } from "./controllers/edit.controller";
 import { EditPlanetUseCase } from "src/domain/planet/use-case/edit.planet";
 import { DeletePlanetUseCase } from "src/domain/planet/use-case/delete.planet";
 import { DeletePlanetController } from "./controllers/delete.controller";
+import { StarSystemRepository } from "src/domain/starSystem/repository/starSystem.repository";
 
 @Module({
     imports: [DatabaseModule],
     providers: [
         {
             provide: CreatePlanetUseCase,
-            useFactory: (planetRepsitory: PlanetRepository) => {
-                return new CreatePlanetUseCase(planetRepsitory);
+            useFactory: (planetRepsitory: PlanetRepository, starSystemRepository: StarSystemRepository) => {
+                return new CreatePlanetUseCase(planetRepsitory, starSystemRepository);
             },
-            inject: [PlanetRepository]
+            inject: [PlanetRepository, StarSystemRepository]
         },
         {
             provide: FindPlanetUseCase,

@@ -1,5 +1,4 @@
-import { IsNotEmpty, IsOptional, IsString } from "class-validator";
-import { Planet } from "src/domain/planet/entity/planet.entity";
+import { IsNotEmpty, IsString } from "class-validator";
 
 export class StarSystemDto {
 
@@ -10,8 +9,4 @@ export class StarSystemDto {
     @IsNotEmpty({ message: 'description is required.' })
     @IsString()
     description: string;
-
-    @IsOptional()
-    @IsNotEmpty({ message: 'planets is required.' })
-    planets: Planet[];
 }

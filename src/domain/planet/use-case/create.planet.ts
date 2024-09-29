@@ -1,7 +1,8 @@
-import { BadRequestException } from "@nestjs/common";
-import { Either, right } from "../../errors/either/either";
+import { BadRequestException, NotFoundException } from "@nestjs/common";
+import { Either, left, right } from "../../errors/either/either";
 import { Planet } from "../entity/planet.entity";
 import { PlanetRepository } from "../repository/planet.repository";
+import { StarSystemRepository } from "../../starSystem/repository/starSystem.repository";
 
 
 type Request = {
@@ -9,25 +10,44 @@ type Request = {
     climate: string;
     terrain: string;
     population: number;
+    starSystemId: string;
 }
 
-type Response = Either<null | BadRequestException, Planet>;
+type Response = Either<null | BadRequestException | NotFoundException, Planet>;
 
 export class CreatePlanetUseCase {
 
-    constructor(private readonly planetRepository: PlanetRepository) { }
+    constructor(
+        private readonly planetRepository: PlanetRepository,
+        private readonly starSystemRepository: StarSystemRepository
+    ) { }
 
-    async execute(plateData: Request): Promise<Response> {
+    async execute(planetData: Request): Promise<Response> {
 
-        const PlanetExist = await this.planetRepository.findByName(plateData.name);
+        const PlanetExist = await this.planetRepository.findByName(planetData.name);
 
         if (PlanetExist) {
-            throw new BadRequestException('Planet is ready');
+            return left(new BadRequestException('Planet is ready'));
         }
 
-        const planet = Planet.create(plateData);
-        await this.planetRepository.create(planet);
+        const starSystemExist = await this.starSystemRepository.findMany(planetData.starSystemId);
 
-        return right(planet);
+        if (!starSystemExist) {
+            return left(new NotFoundException('StarSystem not found'));
+        }
+
+        const planet = Planet.create(
+            {
+                name: planetData.name,
+                climate: planetData.climate,
+                terrain: planetData.terrain,
+                population: planetData.population,
+                starSystemId: planetData.starSystemId
+            }
+        );
+
+        const result = await this.planetRepository.create(planet);
+
+        return right(result);
     }
 }
