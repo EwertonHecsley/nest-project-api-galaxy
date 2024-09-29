@@ -23,6 +23,7 @@ export class PlanetPrismaMapper {
             climate: entity.climate,
             terrain: entity.terrain,
             population: entity.population,
+            starSystemId: entity.id.valueId
         }
     }
 }
