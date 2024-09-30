@@ -26,6 +26,6 @@ export class EditPlanetController {
             }
         }
 
-        return response.status(204).send();
+        return response.send();
     }
 }

@@ -19,4 +19,10 @@ export class InMemoryStarSystemRepository implements StarSystemRepository {
     async list(): Promise<StarSystem[]> {
         return this.itens;
     }
+
+    async save(starSystem: StarSystem): Promise<void> {
+        const itensExist = await this.itens.findIndex(element => element.id == starSystem.id);
+
+        this.itens[itensExist] = starSystem;
+    }
 }
