@@ -1,6 +1,6 @@
 import { PlanetRepository } from "src/domain/planet/repository/planet.repository";
 import { PrismaService } from "../prisma/prisma.service";
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { Planet } from "src/domain/planet/entity/planet.entity";
 import { PlanetPrismaMapper } from "../prisma/mappers/planet.prisma.mapper";
 
@@ -51,10 +51,17 @@ export class PlanetPrismaRepository implements PlanetRepository {
     }
 
     async save(planet: Planet): Promise<void> {
+
         const planetExist = await this.prismaService.planet.findFirst({ where: { id: planet.id.valueId } });
 
         if (!planetExist) {
             return null;
+        }
+
+        const starSystemExist = await this.prismaService.starSystem.findFirst({ where: { id: planet.starSystemId } });
+
+        if (!starSystemExist) {
+            throw new NotFoundException('StarSystem not found');
         }
 
         await this.prismaService.planet.update({ where: { id: planet.id.valueId }, data: PlanetPrismaMapper.toDatabase(planet) });

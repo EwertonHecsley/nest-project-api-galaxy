@@ -1,4 +1,4 @@
-import { Planet } from "src/domain/planet/entity/planet.entity";
+import { Planet } from "../../planet/entity/planet.entity";
 import Entity from "../../../core/generics/entity";
 import Idendity from "../../../core/generics/identity";
 

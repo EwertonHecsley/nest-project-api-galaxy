@@ -11,6 +11,7 @@ export class EditPlanetController {
     @Put(':id')
     @HttpCode(204)
     async handler(@Body() planetData: EditPlanetDto, @Param('id') id: string, @Res() response: Response) {
+
         const result = await this.planetService.execute({ id, ...planetData });
 
         if (result.isLeft()) {
