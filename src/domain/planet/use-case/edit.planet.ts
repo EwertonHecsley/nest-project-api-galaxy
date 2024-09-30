@@ -8,6 +8,7 @@ type Request = {
     climate?: string;
     terrain?: string;
     population?: number;
+    starSystemId?: string;
 }
 
 type Response = Either<NotFoundException | BadRequestException, boolean>
@@ -17,6 +18,7 @@ export class EditPlanetUseCase {
     constructor(private readonly planetRepository: PlanetRepository) { }
 
     async execute(planetData: Request): Promise<Response> {
+
         const planet = await this.planetRepository.findMany(planetData.id);
 
         if (!planet) {
@@ -31,6 +33,7 @@ export class EditPlanetUseCase {
         if (planetData.climate) planet.climate = planetData.climate;
         if (planetData.terrain) planet.terrain = planetData.terrain;
         if (planetData.population !== undefined) planet.population = planetData.population;
+        if (planetData.starSystemId) planet.starSystemId = planetData.starSystemId;
 
         await this.planetRepository.save(planet);
 

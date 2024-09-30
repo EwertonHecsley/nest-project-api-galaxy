@@ -7,6 +7,8 @@ import { FindStarSystemController } from "./controller/find.controller";
 import { FindStarSystemUseCase } from "src/domain/starSystem/use-case/find.starSystem";
 import { ListStarSystemController } from "./controller/list.controller";
 import { ListStarSystemUseCase } from "src/domain/starSystem/use-case/list.starSystem";
+import { EditStarSystemController } from "./controller/edit.controller";
+import { EditStarSystemUseCase } from "src/domain/starSystem/use-case/edit.starSystem";
 
 @Module({
     imports: [DatabaseModule],
@@ -31,8 +33,15 @@ import { ListStarSystemUseCase } from "src/domain/starSystem/use-case/list.starS
                 return new ListStarSystemUseCase(starSystemRepository);
             },
             inject: [StarSystemRepository]
+        },
+        {
+            provide: EditStarSystemUseCase,
+            useFactory: (starSystemRepository: StarSystemRepository) => {
+                return new EditStarSystemUseCase(starSystemRepository);
+            },
+            inject: [StarSystemRepository]
         }
     ],
-    controllers: [CreateStarSystemController, FindStarSystemController, ListStarSystemController]
+    controllers: [CreateStarSystemController, FindStarSystemController, ListStarSystemController, EditStarSystemController]
 })
 export class StarSystemModule { }

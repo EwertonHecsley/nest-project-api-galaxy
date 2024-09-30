@@ -18,7 +18,7 @@ export class StarSystemPrismaRepository implements StarSystemRepository {
     }
 
     async findMany(id: string): Promise<StarSystem> {
-        const starSystemExist = await this.prismaService.starSystem.findFirst({ where: { id } });
+        const starSystemExist = await this.prismaService.starSystem.findFirst({ where: { id }, include: { planets: true } });
 
         if (!starSystemExist) {
             return null;
@@ -52,5 +52,15 @@ export class StarSystemPrismaRepository implements StarSystemRepository {
         });
 
         return result.map(StarSystemPrismaMapper.toDomain);
+    }
+
+    async save(starSystem: StarSystem): Promise<void> {
+        const starSystemExist = await this.prismaService.starSystem.findFirst({ where: { id: starSystem.id.valueId } });
+
+        if (!starSystemExist) {
+            return null;
+        }
+
+        await this.prismaService.starSystem.update({ where: { id: starSystem.id.valueId }, data: StarSystemPrismaMapper.toDatabase(starSystem) });
     }
 }
