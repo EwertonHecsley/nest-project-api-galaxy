@@ -4,7 +4,7 @@ import { StarSystemDto } from "src/domain/starSystem/dto/starSystem.dto";
 import { CreateStarSystemUseCase } from "src/domain/starSystem/use-case/create.starSystem";
 import { StarSystemPresenter } from "src/infra/presenters/starSystem.presenter";
 
-@Controller('/star-system')
+@Controller('/star-systems')
 export class CreateStarSystemController {
 
     constructor(private readonly starSystemService: CreateStarSystemUseCase) { }

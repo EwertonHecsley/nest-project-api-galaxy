@@ -3,7 +3,7 @@ import { Response } from "express";
 import { ListPlanetsUseCase } from "src/domain/planet/use-case/list.planet";
 import { PlanetPresenter } from "src/infra/presenters/planet.presenter";
 
-@Controller('/planet')
+@Controller('/planets')
 export class ListPlanetController {
 
     constructor(private readonly planetService: ListPlanetsUseCase) { }

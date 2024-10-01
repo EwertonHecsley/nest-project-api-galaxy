@@ -3,7 +3,7 @@ import { Response } from "express";
 import { ListStarSystemUseCase } from "src/domain/starSystem/use-case/list.starSystem";
 import { StarSystemPresenter } from "src/infra/presenters/starSystem.presenter";
 
-@Controller('/star-system')
+@Controller('/star-systems')
 export class ListStarSystemController {
 
     constructor(private readonly starSystemService: ListStarSystemUseCase) { }

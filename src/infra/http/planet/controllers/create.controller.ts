@@ -4,7 +4,7 @@ import { PlanetDto } from "src/domain/planet/dto/planet.dto";
 import { CreatePlanetUseCase } from "src/domain/planet/use-case/create.planet";
 import { PlanetPresenter } from "src/infra/presenters/planet.presenter";
 
-@Controller('planet')
+@Controller('planets')
 export class CreatePlanetController {
 
     constructor(private readonly planetService: CreatePlanetUseCase) { }
