@@ -2,7 +2,7 @@ import { Controller, Delete, HttpCode, NotFoundException, Param, Res } from "@ne
 import { Response } from "express";
 import { DeletePlanetUseCase } from "src/domain/planet/use-case/delete.planet";
 
-@Controller('/planet')
+@Controller('/planets')
 export class DeletePlanetController {
 
     constructor(private readonly planetService: DeletePlanetUseCase) { }

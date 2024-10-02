@@ -3,7 +3,7 @@ import { Response } from "express";
 import { EditStarSystemDto } from "src/domain/starSystem/dto/edit.starSystem.dto";
 import { EditStarSystemUseCase } from "src/domain/starSystem/use-case/edit.starSystem";
 
-@Controller('/star-system')
+@Controller('/star-systems')
 export class EditStarSystemController {
 
     constructor(private readonly starSystemService: EditStarSystemUseCase) { }

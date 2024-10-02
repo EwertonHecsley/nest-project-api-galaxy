@@ -3,7 +3,7 @@ import { Response } from "express";
 import { EditPlanetDto } from "src/domain/planet/dto/edit.planet.dto";
 import { EditPlanetUseCase } from "src/domain/planet/use-case/edit.planet";
 
-@Controller('/planet')
+@Controller('/planets')
 export class EditPlanetController {
 
     constructor(private readonly planetService: EditPlanetUseCase) { }
