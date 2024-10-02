@@ -5,6 +5,8 @@ import { DatabaseModule } from "src/infra/database/database.module";
 import { CreateCharacterController } from "./controller/create.controller";
 import { ListCharacterController } from "./controller/list.controller";
 import { ListCharactersUseCase } from "src/domain/character/use-case/list.character";
+import { FindCharacterController } from "./controller/find.controller";
+import { FindCharacterUseCase } from "src/domain/character/use-case/find.character";
 
 @Module({
     imports: [DatabaseModule],
@@ -22,8 +24,15 @@ import { ListCharactersUseCase } from "src/domain/character/use-case/list.charac
                 return new ListCharactersUseCase(characterRepository);
             },
             inject: [CharacterRepository]
+        },
+        {
+            provide: FindCharacterUseCase,
+            useFactory: (characterRepository: CharacterRepository) => {
+                return new FindCharacterUseCase(characterRepository);
+            },
+            inject: [CharacterRepository]
         }
     ],
-    controllers: [CreateCharacterController, ListCharacterController]
+    controllers: [CreateCharacterController, ListCharacterController, FindCharacterController]
 })
 export class CharacterModule { }
