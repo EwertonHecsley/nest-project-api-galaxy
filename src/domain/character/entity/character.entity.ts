@@ -6,6 +6,7 @@ type CharacterType = {
     race: string;
     affiliation: string;
     homePlanetId: string;
+    homePlanet?: string;
 }
 
 export class Character extends Entity<CharacterType> {
@@ -17,6 +18,7 @@ export class Character extends Entity<CharacterType> {
                 race: character.race,
                 affiliation: character.affiliation,
                 homePlanetId: character.homePlanetId,
+                homePlanet: character.homePlanet
             },
             id
         )
@@ -38,6 +40,10 @@ export class Character extends Entity<CharacterType> {
         return this.attributes.homePlanetId;
     }
 
+    get homePlanet(): string {
+        return this.attributes.homePlanet;
+    }
+
     set name(name: string) {
         this.attributes.name = name;
     }
@@ -51,6 +57,6 @@ export class Character extends Entity<CharacterType> {
     }
 
     set homePlanet(homePlanet: string) {
-        this.attributes.homePlanetId = homePlanet;
+        this.attributes.homePlanet = homePlanet;
     }
 }
