@@ -33,4 +33,21 @@ export class CharacterPrismaRepository implements CharacterRepository {
 
         return result;
     }
+
+    async find(id: string): Promise<Character> {
+        const character = await this.prismaService.character.findFirst({ where: { id }, include: { homePlanet: true } });
+
+        if (!character) {
+            return null;
+        }
+
+        return CharacterPrismaMapper.toDomain(character, character.homePlanet ? character.homePlanet.name : null);
+    }
+
+    async save(character: Character): Promise<void> {
+
+        const data = CharacterPrismaMapper.toDatabase(character);
+
+        await this.prismaService.character.update({ where: { id: data.id }, data });
+    }
 }

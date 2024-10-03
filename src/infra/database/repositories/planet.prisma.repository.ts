@@ -25,6 +25,7 @@ export class PlanetPrismaRepository implements PlanetRepository {
     }
 
     async findMany(id: string): Promise<Planet> {
+
         const foundPlanet = await this.prismaService.planet.findFirst({ where: { id } });
 
         if (!foundPlanet) {
