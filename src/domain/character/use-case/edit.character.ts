@@ -29,7 +29,7 @@ export class EditCharacterUseCase {
         }
 
         if (data.homePlanetId) {
-            const planet = await this.planetRepository.findMany(data.homePlanetId);
+            const planet = await this.planetRepository.findByName(data.homePlanetId);
 
             if (!planet) {
                 return left(new NotFoundException('Planet not found'));

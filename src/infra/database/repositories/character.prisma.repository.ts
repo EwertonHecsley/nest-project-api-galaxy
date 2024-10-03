@@ -50,4 +50,14 @@ export class CharacterPrismaRepository implements CharacterRepository {
 
         await this.prismaService.character.update({ where: { id: data.id }, data });
     }
+
+    async delete(id: string): Promise<void> {
+        const character = await this.prismaService.character.findFirst({ where: { id } });
+
+        if (!character) {
+            return null;
+        }
+
+        await this.prismaService.character.delete({ where: { id: character.id } });
+    }
 }
