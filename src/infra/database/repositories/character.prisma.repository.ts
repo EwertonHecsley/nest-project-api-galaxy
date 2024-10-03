@@ -43,4 +43,11 @@ export class CharacterPrismaRepository implements CharacterRepository {
 
         return CharacterPrismaMapper.toDomain(character, character.homePlanet ? character.homePlanet.name : null);
     }
+
+    async save(character: Character): Promise<void> {
+
+        const data = CharacterPrismaMapper.toDatabase(character);
+
+        await this.prismaService.character.update({ where: { id: data.id }, data });
+    }
 }

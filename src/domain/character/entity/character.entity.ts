@@ -59,4 +59,8 @@ export class Character extends Entity<CharacterType> {
     set homePlanet(homePlanet: string) {
         this.attributes.homePlanet = homePlanet;
     }
+
+    set homePlanetId(planetId: string) {
+        this.attributes.homePlanetId = planetId
+    }
 }
