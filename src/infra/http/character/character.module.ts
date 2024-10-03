@@ -10,6 +10,8 @@ import { FindCharacterUseCase } from "src/domain/character/use-case/find.charact
 import { EditCharacterController } from "./controller/edit.controller";
 import { EditCharacterUseCase } from "src/domain/character/use-case/edit.character";
 import { PlanetRepository } from "src/domain/planet/repository/planet.repository";
+import { DeleteCharacterCotroller } from "./controller/delete.controller";
+import { DeleteCharacterUseCase } from "src/domain/character/use-case/delete.character";
 
 @Module({
     imports: [DatabaseModule],
@@ -41,8 +43,15 @@ import { PlanetRepository } from "src/domain/planet/repository/planet.repository
                 return new EditCharacterUseCase(characterRepository, planetRepository);
             },
             inject: [CharacterRepository]
+        },
+        {
+            provide: DeleteCharacterUseCase,
+            useFactory: (characterRepository: CharacterRepository) => {
+                return new DeleteCharacterUseCase(characterRepository);
+            },
+            inject: [CharacterRepository]
         }
     ],
-    controllers: [CreateCharacterController, ListCharacterController, FindCharacterController, EditCharacterController]
+    controllers: [CreateCharacterController, ListCharacterController, FindCharacterController, EditCharacterController, DeleteCharacterCotroller]
 })
 export class CharacterModule { }
