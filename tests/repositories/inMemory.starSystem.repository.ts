@@ -25,4 +25,12 @@ export class InMemoryStarSystemRepository implements StarSystemRepository {
 
         this.itens[itensExist] = starSystem;
     }
+
+    async delete(id: string): Promise<void> {
+        const itensExist = await this.itens.findIndex(element => element.id.valueId == id);
+
+        if (itensExist > -1) {
+            this.itens.splice(itensExist, 1);
+        }
+    }
 }
