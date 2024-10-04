@@ -5,4 +5,5 @@ export abstract class StarSystemRepository {
     abstract findMany(id: string): Promise<StarSystem>;
     abstract list(): Promise<StarSystem[]>;
     abstract save(starSystem: StarSystem): Promise<void>;
+    abstract delete(id: string): Promise<void>;
 }

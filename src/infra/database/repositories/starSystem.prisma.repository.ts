@@ -63,4 +63,14 @@ export class StarSystemPrismaRepository implements StarSystemRepository {
 
         await this.prismaService.starSystem.update({ where: { id: starSystem.id.valueId }, data: StarSystemPrismaMapper.toDatabase(starSystem) });
     }
+
+    async delete(id: string): Promise<void> {
+        const starSystem = await this.prismaService.starSystem.findFirst({ where: { id }, include: { planets: true } });
+
+        if (!starSystem) {
+            return null;
+        }
+
+        await this.prismaService.starSystem.delete({ where: { id: starSystem.id } });
+    }
 }
