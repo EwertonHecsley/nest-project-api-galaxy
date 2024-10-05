@@ -7,6 +7,8 @@ import { HashRepository } from "src/domain/user/service/hash.repository";
 import { CryptoModule } from "src/infra/crypto/crypo.module";
 import { FindUserController } from "./controller/find.controller";
 import { FindUserUseCase } from "src/domain/user/use-case/find.user";
+import { ListUserController } from "./controller/list.controller";
+import { ListUserUseCase } from "src/domain/user/use-case/list.users";
 
 @Module({
     imports: [DatabaseModule, CryptoModule],
@@ -24,8 +26,15 @@ import { FindUserUseCase } from "src/domain/user/use-case/find.user";
                 return new FindUserUseCase(userRepository);
             },
             inject: [UserRepository]
+        },
+        {
+            provide: ListUserUseCase,
+            useFactory: (userRepository: UserRepository) => {
+                return new ListUserUseCase(userRepository);
+            },
+            inject: [UserRepository]
         }
     ],
-    controllers: [CreateUserController, FindUserController]
+    controllers: [CreateUserController, FindUserController, ListUserController]
 })
 export class UserModule { }
