@@ -11,6 +11,8 @@ import { ListUserController } from "./controller/list.controller";
 import { ListUserUseCase } from "src/domain/user/use-case/list.users";
 import { EditUserController } from "./controller/edit.controller";
 import { EditUserUseCase } from "src/domain/user/use-case/edit.user";
+import { DeleteUserController } from "./controller/delete.controller";
+import { DeleteUserUseCase } from "src/domain/user/use-case/delete.user";
 
 @Module({
     imports: [DatabaseModule, CryptoModule],
@@ -42,8 +44,15 @@ import { EditUserUseCase } from "src/domain/user/use-case/edit.user";
                 return new EditUserUseCase(userRepository, hashRepository);
             },
             inject: [UserRepository, HashRepository]
+        },
+        {
+            provide: DeleteUserUseCase,
+            useFactory: (userRepository: UserRepository) => {
+                return new DeleteUserUseCase(userRepository);
+            },
+            inject: [UserRepository]
         }
     ],
-    controllers: [CreateUserController, FindUserController, ListUserController, EditUserController]
+    controllers: [CreateUserController, FindUserController, ListUserController, EditUserController, DeleteUserController]
 })
 export class UserModule { }
