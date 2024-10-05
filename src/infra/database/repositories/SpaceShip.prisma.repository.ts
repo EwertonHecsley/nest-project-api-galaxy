@@ -22,4 +22,25 @@ export class SpaceShipPrismaRepository implements SpaceShipRepository {
 
         return result.map(spaceShip => SpaceShipPrismaMapper.toDomain(spaceShip));
     }
+
+    async find(id: string): Promise<SpaceShip> {
+        const result = await this.prismaService.spaceShip.findFirst({ where: { id } });
+
+        if (!result) {
+            return null;
+        }
+
+        return SpaceShipPrismaMapper.toDomain(result);
+    }
+
+    async save(spaceSchip: SpaceShip): Promise<void> {
+
+        const result = await this.prismaService.spaceShip.findFirst({ where: { id: spaceSchip.id.valueId } });
+
+        if (!result) {
+            return null;
+        }
+
+        await this.prismaService.spaceShip.update({ where: { id: spaceSchip.id.valueId }, data: SpaceShipPrismaMapper.toDatabase(spaceSchip) });
+    }
 }
