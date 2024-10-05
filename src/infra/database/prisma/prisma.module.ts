@@ -8,6 +8,8 @@ import { CharacterRepository } from "src/domain/character/repository/character.r
 import { CharacterPrismaRepository } from "../repositories/character.prisma.repository";
 import { SpaceShipRepository } from "src/domain/spaceShips/repository/spaceShip.repository";
 import { SpaceShipPrismaRepository } from "../repositories/SpaceShip.prisma.repository";
+import { UserRepository } from "src/domain/user/repository/user.repository";
+import { UserPrismaRepository } from "../repositories/user.prisma.repository";
 
 @Module({
     providers: [
@@ -15,8 +17,9 @@ import { SpaceShipPrismaRepository } from "../repositories/SpaceShip.prisma.repo
         { provide: PlanetRepository, useClass: PlanetPrismaRepository },
         { provide: StarSystemRepository, useClass: StarSystemPrismaRepository },
         { provide: CharacterRepository, useClass: CharacterPrismaRepository },
-        { provide: SpaceShipRepository, useClass: SpaceShipPrismaRepository }
+        { provide: SpaceShipRepository, useClass: SpaceShipPrismaRepository },
+        { provide: UserRepository, useClass: UserPrismaRepository }
     ],
-    exports: [PrismaService, PlanetRepository, StarSystemRepository, CharacterRepository, SpaceShipRepository]
+    exports: [PrismaService, PlanetRepository, StarSystemRepository, CharacterRepository, SpaceShipRepository, UserRepository]
 })
 export class PrismaModule { }

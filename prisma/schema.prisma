@@ -49,3 +49,13 @@ model SpaceShip {
 
   @@map("spacesShips")
 }
+
+model User {
+  id       String @id @default(uuid()) @db.Uuid
+  name     String
+  email    String @unique
+  password String
+  category String
+
+  @@map("users")
+}
