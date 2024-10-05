@@ -3,6 +3,8 @@ import { SpaceShipRepository } from "src/domain/spaceShips/repository/spaceShip.
 import { ListSpaceShipUseCase } from "src/domain/spaceShips/use-case/list.spaceShip";
 import { DatabaseModule } from "src/infra/database/database.module";
 import { ListSpaceShipController } from "./controller/list.controller";
+import { CreateSpaceShipController } from "./controller/create.cotroller";
+import { CreateSpaceShipUseCase } from "src/domain/spaceShips/use-case/create.spaceSchip";
 
 @Module({
     imports: [DatabaseModule],
@@ -13,8 +15,15 @@ import { ListSpaceShipController } from "./controller/list.controller";
                 return new ListSpaceShipUseCase(spaceShipRepository);
             },
             inject: [SpaceShipRepository]
+        },
+        {
+            provide: CreateSpaceShipUseCase,
+            useFactory: (spaceShipRepository: SpaceShipRepository) => {
+                return new CreateSpaceShipUseCase(spaceShipRepository);
+            },
+            inject: [SpaceShipRepository]
         }
     ],
-    controllers: [ListSpaceShipController]
+    controllers: [ListSpaceShipController, CreateSpaceShipController]
 })
 export class SpaceShipModule { }

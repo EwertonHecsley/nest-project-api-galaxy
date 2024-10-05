@@ -9,6 +9,14 @@ export class SpaceShipPrismaRepository implements SpaceShipRepository {
 
     constructor(private readonly prismaService: PrismaService) { }
 
+    async create(spaceShip: SpaceShip): Promise<SpaceShip> {
+        const data = SpaceShipPrismaMapper.toDatabase(spaceShip);
+
+        const result = await this.prismaService.spaceShip.create({ data });
+
+        return SpaceShipPrismaMapper.toDomain(result);
+    }
+
     async list(): Promise<SpaceShip[]> {
         const result = await this.prismaService.spaceShip.findMany();
 
