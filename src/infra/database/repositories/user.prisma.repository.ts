@@ -22,4 +22,10 @@ export class UserPrismaRepository implements UserRepository {
 
         return userFromDatabase ? UserPrismaMapper.toDomain(userFromDatabase) : null;
     }
+
+    async findById(id: string): Promise<User> {
+        const user = await this.prismaService.user.findFirst({ where: { id } });
+
+        return user ? UserPrismaMapper.toDomain(user) : null;
+    }
 }
