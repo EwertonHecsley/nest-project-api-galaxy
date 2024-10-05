@@ -43,4 +43,14 @@ export class SpaceShipPrismaRepository implements SpaceShipRepository {
 
         await this.prismaService.spaceShip.update({ where: { id: spaceSchip.id.valueId }, data: SpaceShipPrismaMapper.toDatabase(spaceSchip) });
     }
+
+    async delete(id: string): Promise<void> {
+        const spaceSchip = await this.prismaService.spaceShip.findFirst({ where: { id } });
+
+        if (!spaceSchip) {
+            return null;
+        }
+
+        await this.prismaService.spaceShip.delete({ where: { id: spaceSchip.id } });
+    }
 }

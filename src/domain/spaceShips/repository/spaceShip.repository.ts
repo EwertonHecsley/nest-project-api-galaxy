@@ -5,4 +5,5 @@ export abstract class SpaceShipRepository {
     abstract list(): Promise<SpaceShip[]>;
     abstract find(id: string): Promise<SpaceShip>;
     abstract save(spaceSchip: SpaceShip): Promise<void>;
+    abstract delete(id: string): Promise<void>;
 }

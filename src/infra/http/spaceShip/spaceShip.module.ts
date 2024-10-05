@@ -9,6 +9,8 @@ import { FindSpaceShipController } from "./controller/find.controller";
 import { FindSpaceShipUseCase } from "src/domain/spaceShips/use-case/find.spaceShip";
 import { EditSpaceShipUseCase } from "src/domain/spaceShips/use-case/edit.spaceShip";
 import { EditSpaceShipController } from "./controller/edit.cotroller";
+import { DeleteSpaceShipController } from "./controller/delete.controller";
+import { DeleteSpaceShipUseCase } from "src/domain/spaceShips/use-case/delete.spaceShip";
 
 @Module({
     imports: [DatabaseModule],
@@ -40,8 +42,15 @@ import { EditSpaceShipController } from "./controller/edit.cotroller";
                 return new EditSpaceShipUseCase(spaceShipRepository);
             },
             inject: [SpaceShipRepository]
+        },
+        {
+            provide: DeleteSpaceShipUseCase,
+            useFactory: (spaceShipRepository: SpaceShipRepository) => {
+                return new DeleteSpaceShipUseCase(spaceShipRepository);
+            },
+            inject: [SpaceShipRepository]
         }
     ],
-    controllers: [ListSpaceShipController, CreateSpaceShipController, FindSpaceShipController, EditSpaceShipController]
+    controllers: [ListSpaceShipController, CreateSpaceShipController, FindSpaceShipController, EditSpaceShipController, DeleteSpaceShipController]
 })
 export class SpaceShipModule { }
