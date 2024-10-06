@@ -4,6 +4,7 @@ frontend:
     scripts:
         build: npm run build
         deploy: npm install
+    subdomain: nest-project-api-galaxy
 name: nest-project-api-galaxy
 region: us-east-1
 yamlVersion: 2
